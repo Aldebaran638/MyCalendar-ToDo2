@@ -10,6 +10,12 @@
   border: 1px solid rgba(91, 101, 110, 0.1); /* 0.1为10%不透明度，可调整 */
   /*元素圆角大小*/
   border-radius: 0px;
+  /* 垂直居中 */
+  justify-content: center; 
+  /* 水平居中 */
+  align-items: center;  
+  /* 多行文本居中 */   
+  text-align: center;      
 }
 /* 第一列去掉左边框 */
 .NoLeftBorder {
@@ -52,14 +58,35 @@
 .WhiteButton:hover {
   background-color: #bdbdbd;
 }
+
+
+/* 隐藏主体部分的滚动条 */
+/* 针对大多数浏览器 */
+#CalendarWeekMain {
+  scrollbar-width: none;      /* Firefox */
+  -ms-overflow-style: none;   /* IE和Edge */
+}
+#CalendarWeekMain::-webkit-scrollbar {
+  display: none;              /* Chrome和Safari */
+}
 /*------------------------------主体部分时间块样式------------------------------*/
 /*------------------------------顶部时间块样式------------------------------*/
 .CalendarWeekHeaderBlock{
   flex: 1;
-  height: 10px;
+  height: 15px;
   margin: 0px;
-  border: 2px solid #007bff; /* 蓝色边框 */
-  border-radius: 4px; /* 圆角 */
+  border: 1px solid #007bff; /* 蓝色边框 */
+  border-radius: 0px; /* 圆角 */
   background-color: #f0f8ff; /* 浅蓝色背景 */
+  /* 垂直居中 */
+  justify-content: center; 
+  /* 水平居中 */
+  align-items: center;  
+  /* 多行文本居中 */   
+  text-align: center;      
+}
+.CalendarWeekHeaderTodayButton {
+  background-color: #3d21d9 !important; /* 绿色 */
+  color: #fff !important;
 }
 /*------------------------------顶部时间块样式------------------------------*/
