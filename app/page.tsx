@@ -2,13 +2,13 @@ import Mainpage from "./AppHtml";
 
 /**
  * export：导出该组件，使得该组件可以被其他文件使用
- * default： 表示这个模块（文件）默认导出某个变量、函数或类。在
+ * default： 表示这个模块（文件）默认导出某个变量、函数或类。在本文件中
  *  由于Home函数前面有export default，所以本文件默认导出Home函数
  * @returns ：在函数注释里写 @returns，可以告诉别人这个函数会返回什么内容。
  */
 export default function Home() {
   {
-    /*这里是注释.在React的JSX语法中,必须用大括号和/*包裹注释,且不能用//*/
+    /* 这里是注释.在React的JSX语法中,必须用大括号和/*包裹注释,且不能用// */
   }
   return (
     <main>
