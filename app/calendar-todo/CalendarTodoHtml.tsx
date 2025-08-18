@@ -36,15 +36,81 @@ function getCalendarWeekHeaderButtons() {
   CalendarWeekHeaderButtons.length = 0;
   for (let i = 0; i < 8; i++) {
     CalendarWeekHeaderButtons.push(
-      <button id={i.toString()} className="CalendarWeekHeaderButton">
+      <button
+        id={`CalendarWeekHeaderButton${i.toString()}`}
+        className="CalendarWeekHeaderButton"
+      >
         {weekNames[i]}
       </button>
     );
   }
 }
 
+const CalendarWeekMainButtons: JSX.Element[] = [];
+const TimeGap = 15; //在主体部分，以TimeGap分钟作为一个时间块的大小
+function getCalendarWeekMainButtons() {
+  CalendarWeekMainButtons.length = 0; //记得清空旧的内容！！！
+  const Row: number = (24 * 60) / TimeGap;
+  for (let i = 1; i <= Row; i++) {
+    const Tmp: JSX.Element[] = [];
+    for (let j = 1; j <= 8; j++) {
+      let className: string = `CalendarWeekMainBlock`;
+      let content: string = "";
+      let id: string = "";
+      //第一列,需要标注时间
+      if (j == 1) {
+        if (
+          i % (60 / TimeGap) == 1 ||
+          i % (60 / TimeGap) == 60 / TimeGap / 2 + 1
+        ) {
+          let h = Math.floor(i / (60 / TimeGap));
+          let m = ((i % (60 / TimeGap)) - 1) * TimeGap;
+          content = `${h.toString().padStart(2, "0")}:
+                ${m.toString().padStart(2, "0")}`;
+        }
+      }
+      //奇数列,填充为灰色
+      if (j % 2 == 1) {
+        className += ` GreyButton`;
+      }
+      //偶数列,填充为白色
+      else {
+        className += ` WhiteButton`;
+      }
+      //第一列,去掉左边界
+      if (j == 1) {
+        className += ` NoLeftBorder`;
+      }
+      //最后一列，去掉右边界
+      else if (j == 8) {
+        className += ` NoRightBorder`;
+      }
+      //特殊行,只去掉上边界
+      if (i % (60 / TimeGap) == 0) {
+        className += ` NoTopBorder`;
+      }
+      //其余行去掉上下边界
+      else {
+        className += ` NoVerticalBorder`;
+      }
+      Tmp.push(
+        <button id={id} className={className}>
+          {content}
+        </button>
+      );
+    }
+    //用<div>包裹而非使用二维数组，可以让TS将按钮渲染成想要的二维表格形状
+    CalendarWeekMainButtons.push(
+      <div key={i} style={{ display: "flex" }}>
+        {Tmp}
+      </div>
+    );
+  }
+}
+
 export default function CalendarTodoPage() {
   getCalendarWeekHeaderButtons();
+  getCalendarWeekMainButtons();
   return (
     <section>
       {/**日历容器 */}
@@ -91,43 +157,8 @@ export default function CalendarTodoPage() {
                 overflow: "auto", // 添加滚动条
               }}
             >
-              {/**96*8个周日历时间块 */}
-              {Array.from({ length: 96 }).map((_, rowIdx) => (
-                <div key={rowIdx} style={{ display: "flex" }}>
-                  {Array.from({ length: 8 }).map((_, colIdx) => {
-                    // 用于规定各种类型的时间块样式
-                    let extraClass = "";
-                    //第1列按钮去掉左边界，第6列的按钮去掉右边界
-                    {
-                      if (colIdx === 0) extraClass += " NoLeftBorder";
-                      if (colIdx === 7) extraClass += " NoRightBorder";
-                    }
-
-                    // 行数为4的按钮去除上边界保留下边界，其它的去除上下边界（只保留对应整时的横线）
-                    {
-                      if ((rowIdx + 1) % 4 === 0) {
-                        extraClass += " NoTopBorder";
-                      } else {
-                        extraClass += " NoVerticalBorder";
-                      }
-                    }
-                    // 奇数列的按钮为灰色，偶数列的按钮为白色
-                    {
-                      if ((colIdx + 1) % 2 != 0) {
-                        extraClass += " GreyButton";
-                      } else {
-                        extraClass += " WhiteButton";
-                      }
-                    }
-                    return (
-                      <button
-                        key={colIdx}
-                        className={`CalendarWeekBlock${extraClass}`}
-                      ></button>
-                    );
-                  })}
-                </div>
-              ))}
+              {/**周日历时间块 */}
+              {CalendarWeekMainButtons}
             </div>
           </div>
         </div>

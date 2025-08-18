@@ -1,6 +1,6 @@
 /*------------------------------主体部分时间块样式------------------------------*/
 /* 日历每个时间块的基础样式 */
-.CalendarWeekBlock {
+.CalendarWeekMainBlock {
   /* 宽度自动匹配 */
   flex: 1;
   height: 15px;
@@ -10,23 +10,33 @@
   border: 1px solid rgba(91, 101, 110, 0.1); /* 0.1为10%不透明度，可调整 */
   /*元素圆角大小*/
   border-radius: 0px;
-  /* 垂直居中 */
-  justify-content: center;
-  /* 水平居中 */
-  align-items: center;
-  /* 多行文本居中 */
-  text-align: center;
+  display: flex;
+  /* 垂直靠上 */
+  justify-content: flex-end;
+  /* 水平靠右 */
+  align-items: flex-start;
+  /* 多行文本靠右 */
+  text-align: right;
+  /* 颜色变化有0.3秒的平滑过渡动画 */
+  transition: background-color 0.3s;
+  /* 字体大小 */
+  font-size: 2vw;
+  font-size: 2vh;
 }
-/* 第一列去掉左边框 */
+/* 鼠标悬停时变成深灰色 */
+.CalendarWeekMainBlock:hover {
+  background-color: #bdbdbd;
+}
+/* 去掉左边框 */
 .NoLeftBorder {
   border-left: none;
 }
 
-/* 第七列去掉右边框 */
+/* 去掉右边框 */
 .NoRightBorder {
   border-right: none;
 }
-/* 除以4的余数为0的行只去掉上边界 */
+/* 只去掉上边界 */
 .NoTopBorder {
   border-top: none;
 }
@@ -36,27 +46,16 @@
   border-top: none;
   border-bottom: none;
 }
-/* 奇数列为灰色按钮 */
+/* 按钮由灰色填充 */
 .GreyButton {
   background-color: #f9f9f9;
   color: #827e7e;
 }
 
-/* 偶数列为白色按钮 */
+/* 按钮由白色填充 */
 .WhiteButton {
   background-color: #fff;
   color: #333;
-}
-/* 按钮被触摸时的过渡效果 */
-.GreyButton,
-.WhiteButton {
-  transition: background-color 0.3s;
-}
-
-/* 鼠标悬停时变成深灰色 */
-.GreyButton:hover,
-.WhiteButton:hover {
-  background-color: #bdbdbd;
 }
 
 /* 隐藏主体部分的滚动条 */
