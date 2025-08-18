@@ -1,6 +1,6 @@
 /*------------------------------主体部分时间块样式------------------------------*/
 /* 日历每个时间块的基础样式 */
-.CalendarWeekMainBlock {
+.CalendarWeekMainButton {
   /* 宽度自动匹配 */
   flex: 1;
   height: 15px;
@@ -24,7 +24,7 @@
   font-size: 2vh;
 }
 /* 鼠标悬停时变成深灰色 */
-.CalendarWeekMainBlock:hover {
+.CalendarWeekMainButton:hover {
   background-color: #bdbdbd;
 }
 /* 去掉左边框 */
@@ -69,39 +69,34 @@
 }
 /*------------------------------主体部分时间块样式------------------------------*/
 /*------------------------------顶部时间块样式------------------------------*/
-.CalendarWeekHeaderBlock {
-  flex: 1;
-  height: 15px;
-  margin: 0px;
-  border: 1px solid #007bff; /* 蓝色边框 */
-  border-radius: 0px; /* 圆角 */
-  background-color: #f0f8ff; /* 浅蓝色背景 */
-  /* 垂直居中 */
-  justify-content: center;
-  /* 水平居中 */
-  align-items: center;
-  /* 多行文本居中 */
-  text-align: center;
-}
-.CalendarWeekHeaderTodayButton {
-  background-color: #3d21d9 !important; /* 绿色 */
+.CalendarWeekHeaderButtonToday {
+  background-color: #8c82c0 !important; /* 绿色 */
   color: #fff !important;
 }
 .CalendarWeekHeaderButton {
-  /* 宽度自动匹配 */
+    /* 宽度自动匹配 */
   flex: 1;
-  height: 8vh;
+  height: 15px;
   /* 与其他组件的间距 */
   margin: 0px;
   /*边界*/
   border: 1px solid rgba(91, 101, 110, 0.1); /* 0.1为10%不透明度，可调整 */
   /*元素圆角大小*/
   border-radius: 0px;
+  display: flex;
   /* 垂直居中 */
   justify-content: center;
   /* 水平居中 */
   align-items: center;
   /* 多行文本居中 */
   text-align: center;
+  /* 字体大小 */
+  font-size: 2vw;
+  font-size: 2vh;
+
+  height: 8vh;
+  /* 与其他组件的间距 */
+  margin: 0px;
+
 }
 /*------------------------------顶部时间块样式------------------------------*/

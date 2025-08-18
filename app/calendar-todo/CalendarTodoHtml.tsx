@@ -34,18 +34,42 @@ const CalendarWeekHeaderButtons: JSX.Element[] = [];
 /**绘制CalendarWeekHeader容器的按钮 */
 function getCalendarWeekHeaderButtons() {
   CalendarWeekHeaderButtons.length = 0;
+  const weekDates = getRecentWeekDates(); // 获取最近一周的日期
   for (let i = 0; i < 8; i++) {
+    let className: string = "CalendarWeekHeaderButton";
+    let content: string = "";
+    let id: string = `CalendarWeekHeaderButton${i.toString()}`;
+    if (i === 0) {
+      // 第一列不填内容
+      content = "";
+    } else {
+      // 后面7列显示日期和星期
+      const date = weekDates[i - 1];
+      const today = new Date();
+      // 判断是否为今天，若是可加特殊样式
+      const isToday =
+        date.getFullYear() === today.getFullYear() &&
+        date.getMonth() === today.getMonth() &&
+        date.getDate() === today.getDate();
+      if (isToday) className += " CalendarWeekHeaderButtonToday";
+      // 格式：08/11 \n 星期一
+      content =
+        date.toLocaleDateString("zh-CN", { month: "2-digit", day: "2-digit" }) +
+        "\n" +
+        weekNames[i];
+    }
     CalendarWeekHeaderButtons.push(
       <button
-        id={`CalendarWeekHeaderButton${i.toString()}`}
-        className="CalendarWeekHeaderButton"
+        id={id}
+        className={className}
+        key={id}
+        style={{ whiteSpace: "pre-line" }}
       >
-        {weekNames[i]}
+        {content}
       </button>
     );
   }
 }
-
 const CalendarWeekMainButtons: JSX.Element[] = [];
 const TimeGap = 15; //在主体部分，以TimeGap分钟作为一个时间块的大小
 function getCalendarWeekMainButtons() {
@@ -54,7 +78,7 @@ function getCalendarWeekMainButtons() {
   for (let i = 1; i <= Row; i++) {
     const Tmp: JSX.Element[] = [];
     for (let j = 1; j <= 8; j++) {
-      let className: string = `CalendarWeekMainBlock`;
+      let className: string = `CalendarWeekMainButton`;
       let content: string = "";
       let id: string = "";
       //第一列,需要标注时间
