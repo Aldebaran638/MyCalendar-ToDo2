@@ -2,6 +2,22 @@
 import "./CalendarTodoCSS.css";
 import { JSX } from "react";
 
+
+
+const weekNames: string[] = [
+  "",
+  "星期一",
+  "星期二",
+  "星期三",
+  "星期四",
+  "星期五",
+  "星期六",
+  "星期日",
+];
+
+const CalendarWeekHeaderButtons: JSX.Element[] = [];
+
+/**用于获取最近一周的日期 */
 function getRecentWeekDates() {
   const today = new Date();
   const weekDay = today.getDay() === 0 ? 7 : today.getDay(); // 周日为7
@@ -17,19 +33,6 @@ function getRecentWeekDates() {
   }
   return dates;
 }
-
-const weekNames: string[] = [
-  "",
-  "星期一",
-  "星期二",
-  "星期三",
-  "星期四",
-  "星期五",
-  "星期六",
-  "星期日",
-];
-
-const CalendarWeekHeaderButtons: JSX.Element[] = [];
 
 /**绘制CalendarWeekHeader容器的按钮 */
 function getCalendarWeekHeaderButtons() {
@@ -137,6 +140,10 @@ export default function CalendarTodoPage() {
   getCalendarWeekMainButtons();
   return (
     <section>
+      {/**导航容器 */}
+      <div id="Navigation" style={{ width: "100vw", height: "4vh" }}>
+
+      </div>
       {/**日历容器 */}
       <div id="Calendar" style={{ display: "flex", height: "100vh" }}>
         {/**日历容器 */}
