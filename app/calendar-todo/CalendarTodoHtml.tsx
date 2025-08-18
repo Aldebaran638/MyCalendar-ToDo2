@@ -1,8 +1,15 @@
 "use client";
 import "./CalendarTodoCSS.css";
 import { JSX } from "react";
+import { useState } from "react";
 
+/**用于标识当前页面状态。1代表在Calendar标签，2代表在Todo标签 */
+let StateCalendarTodo = 1;
 
+/**用于标识当前页面状态。1代表在CalendarController标签，2代表在Todos标签 */
+let StateCalendarControllerTodos = 1;
+
+const Switchers: JSX.Element[] = [];
 
 const weekNames: string[] = [
   "",
@@ -136,13 +143,50 @@ function getCalendarWeekMainButtons() {
 }
 
 export default function CalendarTodoPage() {
+  /**使用 useState 替代全局变量 */
+  /**这里可以看作是用useState定义了两个东西。第一个变量用来判断当前状态，第二个函数用于设置状态 */
+  const [stateCalendarTodo, setStateCalendarTodo] = useState(1);
+  function getSwitcher1() {
+    Switchers.length = 0;
+    Switchers.push(
+      <div id="Switchers" style={{ display: "flex" }}>
+        <button
+          /**使用useState的第一个东西，即变量来判断当前状态，从而动态决定按钮样式 */
+          className={`NavigationButton ${
+            stateCalendarTodo === 1 ? "WhiteButton" : "BlueButton"
+          }`}
+          onClick={() => {
+            /**使用useState的第二个东西，即函数来设置当前状态 */
+            setStateCalendarTodo(stateCalendarTodo === 1 ? 2 : 1);
+          }}
+        >
+          Calendar
+        </button>
+        <button
+          /**使用useState的第一个东西，即变量来判断当前状态，从而动态决定按钮样式 */
+          className={`NavigationButton ${
+            stateCalendarTodo === 1 ? "BlueButton" : "WhiteButton"
+          }`}
+          onClick={() => {
+            /**使用useState的第二个东西，即函数来设置当前状态 */
+            setStateCalendarTodo(stateCalendarTodo === 1 ? 2 : 1);
+          }}
+        >
+          Todo
+        </button>
+      </div>
+    );
+    Switchers.push();
+    Switchers.push();
+  }
+  getSwitcher1();
   getCalendarWeekHeaderButtons();
   getCalendarWeekMainButtons();
   return (
     <section>
       {/**导航容器 */}
       <div id="Navigation" style={{ width: "100vw", height: "4vh" }}>
-
+        {Switchers}
       </div>
       {/**日历容器 */}
       <div id="Calendar" style={{ display: "flex", height: "100vh" }}>
