@@ -1,7 +1,13 @@
+import { JSX } from "react";
+import "./TestCSS.css"
 export default function CalendarTodoPage() {
   const buttons: JSX.Element[] = [];
   for (let i = 0; i < 8; i++) {
-    buttons.push(<button key={i}>{i + 1}</button>);
+    buttons.push(
+      <button
+        key={i}
+        className="testButton"
+    >{i + 1}</button>);
   }
 
   return (

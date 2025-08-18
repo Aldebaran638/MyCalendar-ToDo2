@@ -1,5 +1,6 @@
 "use client";
 import "./CalendarTodoCSS.css";
+import { JSX } from "react";
 
 function getRecentWeekDates() {
   const today = new Date();
@@ -17,7 +18,8 @@ function getRecentWeekDates() {
   return dates;
 }
 
-const weekNames = [
+const weekNames: string[] = [
+  "",
   "星期一",
   "星期二",
   "星期三",
@@ -27,7 +29,22 @@ const weekNames = [
   "星期日",
 ];
 
+const CalendarWeekHeaderButtons: JSX.Element[] = [];
+
+/**绘制CalendarWeekHeader容器的按钮 */
+function getCalendarWeekHeaderButtons() {
+  CalendarWeekHeaderButtons.length = 0;
+  for (let i = 0; i < 8; i++) {
+    CalendarWeekHeaderButtons.push(
+      <button id={i.toString()} className="CalendarWeekHeaderButton">
+        {weekNames[i]}
+      </button>
+    );
+  }
+}
+
 export default function CalendarTodoPage() {
+  getCalendarWeekHeaderButtons();
   return (
     <section>
       {/**日历容器 */}
@@ -61,50 +78,9 @@ export default function CalendarTodoPage() {
                 height: "8vh",
               }}
             >
-              {/* 一行8个按钮一起绘制，第一列不填内容，后面7列显示日期和星期 */}
-              <div style={{ display: "flex", height: "8vh" }}>
-                {Array.from({ length: 8 }).map((_, idx) => {
-                  if (idx === 0) {
-                    // 第一列按钮不填内容
-                    return (
-                      <button
-                        key={idx}
-                        className="CalendarWeekHeaderBlock WhiteButton"
-                        style={{ flex: 1, height: "8vh" }}
-                      ></button>
-                    );
-                  } else {
-                    const weekDates = getRecentWeekDates();
-                    const date = weekDates[idx - 1];
-                    const today = new Date();
-                    const isToday =
-                      date.getFullYear() === today.getFullYear() &&
-                      date.getMonth() === today.getMonth() &&
-                      date.getDate() === today.getDate();
-                    return (
-                      <button
-                        key={idx}
-                        className={`CalendarWeekHeaderBlock WhiteButton${
-                          isToday ? " CalendarWeekHeaderTodayButton" : ""
-                        }`}
-                        style={{
-                          flex: 1,
-                          height: "8vh",
-                          whiteSpace: "pre-line",
-                        }}
-                      >
-                        {date
-                          .toLocaleDateString("zh-CN", {
-                            month: "2-digit",
-                            day: "2-digit",
-                          })
-                          .slice(5)}
-                        {"\n"}
-                        {weekNames[idx - 1]}
-                      </button>
-                    );
-                  }
-                })}
+              <div style={{ display: "flex" }}>
+                {/* 绘制CalendarWeekHeader的八个组件按钮 */}
+                {CalendarWeekHeaderButtons}
               </div>
             </div>
             {/**周模式下日历主体部分容器 */}

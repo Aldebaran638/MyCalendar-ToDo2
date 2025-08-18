@@ -1,0 +1,10 @@
+.testButton{
+  background-color: rgb(215, 47, 47);
+  border: 1px solid rgb(231, 52, 52);
+  border-radius: 4px;
+  padding: 8px 12px;
+  margin: 0px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100vw;
+}
