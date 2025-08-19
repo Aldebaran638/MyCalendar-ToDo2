@@ -143,17 +143,19 @@ function getCalendarWeekMainButtons() {
 }
 
 export default function CalendarTodoPage() {
-  /**使用 useState 替代全局变量 */
+  /**使用 useState 替代全局变量,但是useState是不能放在函数之外的 */
   /**这里可以看作是用useState定义了两个东西。第一个变量用来判断当前状态，第二个函数用于设置状态 */
   const [stateCalendarTodo, setStateCalendarTodo] = useState(1);
-  function getSwitcher1() {
+  const [stateCalendarControllerTodos, setStateCalendarControllerTodos] =
+    useState(1);
+  function getSwitcher() {
     Switchers.length = 0;
     Switchers.push(
       <div id="Switchers" style={{ display: "flex" }}>
         <button
           /**使用useState的第一个东西，即变量来判断当前状态，从而动态决定按钮样式 */
           className={`NavigationButton ${
-            stateCalendarTodo === 1 ? "WhiteButton" : "BlueButton"
+            stateCalendarTodo === 1 ? "BlueButton" : "WhiteButton"
           }`}
           onClick={() => {
             /**使用useState的第二个东西，即函数来设置当前状态 */
@@ -165,7 +167,7 @@ export default function CalendarTodoPage() {
         <button
           /**使用useState的第一个东西，即变量来判断当前状态，从而动态决定按钮样式 */
           className={`NavigationButton ${
-            stateCalendarTodo === 1 ? "BlueButton" : "WhiteButton"
+            stateCalendarTodo === 1 ? "WhiteButton" : "BlueButton"
           }`}
           onClick={() => {
             /**使用useState的第二个东西，即函数来设置当前状态 */
@@ -174,12 +176,39 @@ export default function CalendarTodoPage() {
         >
           Todo
         </button>
+        <button className={`NavigationBlankButton WhiteButton`}></button>
+        <button
+          /**使用useState的第一个东西，即变量来判断当前状态，从而动态决定按钮样式 */
+          className={`NavigationButton ${
+            stateCalendarControllerTodos === 1 ? "BlueButton" : "WhiteButton"
+          }`}
+          onClick={() => {
+            /**使用useState的第二个东西，即函数来设置当前状态 */
+            setStateCalendarControllerTodos(
+              stateCalendarControllerTodos === 1 ? 2 : 1
+            );
+          }}
+        >
+          Calendar Controller
+        </button>
+        <button
+          /**使用useState的第一个东西，即变量来判断当前状态，从而动态决定按钮样式 */
+          className={`NavigationButton ${
+            stateCalendarControllerTodos === 1 ? "WhiteButton" : "BlueButton"
+          }`}
+          onClick={() => {
+            /**使用useState的第二个东西，即函数来设置当前状态 */
+            setStateCalendarControllerTodos(
+              stateCalendarControllerTodos === 1 ? 2 : 1
+            );
+          }}
+        >
+          Todos
+        </button>
       </div>
     );
-    Switchers.push();
-    Switchers.push();
   }
-  getSwitcher1();
+  getSwitcher();
   getCalendarWeekHeaderButtons();
   getCalendarWeekMainButtons();
   return (
@@ -189,52 +218,49 @@ export default function CalendarTodoPage() {
         {Switchers}
       </div>
       {/**日历容器 */}
-      <div id="Calendar" style={{ display: "flex", height: "100vh" }}>
-        {/**日历容器 */}
+      <div
+        id="Calendar"
+        style={{
+          width: "75vw",
+          height: "96vh",
+        }}
+      >
+        {/**日历头部容器 */}
         <div
-          id="Calendar"
+          id="CalendarHeader"
           style={{
-            width: "75vw",
-            height: "96vh",
+            height: "8vh",
+          }}
+        ></div>
+        {/**周模式下日历容器 */}
+        <div
+          id="CalendarWeek"
+          style={{
+            height: "80vh",
           }}
         >
-          {/**日历头部容器 */}
+          {/**周模式下日历头部时间容器 */}
           <div
-            id="CalendarHeader"
+            id="CalendarWeekHeader"
             style={{
               height: "8vh",
             }}
-          ></div>
-          {/**周模式下日历容器 */}
+          >
+            <div style={{ display: "flex" }}>
+              {/* 绘制CalendarWeekHeader的八个组件按钮 */}
+              {CalendarWeekHeaderButtons}
+            </div>
+          </div>
+          {/**周模式下日历主体部分容器 */}
           <div
-            id="CalendarWeek"
+            id="CalendarWeekMain"
             style={{
               height: "80vh",
+              overflow: "auto", // 添加滚动条
             }}
           >
-            {/**周模式下日历头部时间容器 */}
-            <div
-              id="CalendarWeekHeader"
-              style={{
-                height: "8vh",
-              }}
-            >
-              <div style={{ display: "flex" }}>
-                {/* 绘制CalendarWeekHeader的八个组件按钮 */}
-                {CalendarWeekHeaderButtons}
-              </div>
-            </div>
-            {/**周模式下日历主体部分容器 */}
-            <div
-              id="CalendarWeekMain"
-              style={{
-                height: "80vh",
-                overflow: "auto", // 添加滚动条
-              }}
-            >
-              {/**周日历时间块 */}
-              {CalendarWeekMainButtons}
-            </div>
+            {/**周日历时间块 */}
+            {CalendarWeekMainButtons}
           </div>
         </div>
       </div>
