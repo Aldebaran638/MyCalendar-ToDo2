@@ -205,9 +205,9 @@ export default function CalendarTodoPage() {
   }
 
   const [
-    stateCalendarHeaderComponentsSwitcher,
-    setStateCalendarHeaderComponentsSwitcher,
-  ] = useState(1);
+    stateCalendarHeaderSwitcher,
+    setStateCalendarHeaderSwitcher,
+  ] = useState(2);
   function getCalendarHeaderComponents() {
     CalendarHeaderComponents.length = 0; // 记得清空
     CalendarHeaderComponents.push(
@@ -230,36 +230,36 @@ export default function CalendarTodoPage() {
         {/**日历模式转换器 */}
         <button
           className={`CalendarHeaderSwitcherButton ${
-            stateCalendarHeaderComponentsSwitcher === 1
+            stateCalendarHeaderSwitcher === 1
               ? "BlueButton"
               : "WhiteButton"
           }`}
           onClick={() => {
-            setStateCalendarHeaderComponentsSwitcher(1);
+            setStateCalendarHeaderSwitcher(1);
           }}
         >
           Month
         </button>
         <button
           className={`CalendarHeaderSwitcherButton ${
-            stateCalendarHeaderComponentsSwitcher === 2
+            stateCalendarHeaderSwitcher === 2
               ? "BlueButton"
               : "WhiteButton"
           }`}
           onClick={() => {
-            setStateCalendarHeaderComponentsSwitcher(2);
+            setStateCalendarHeaderSwitcher(2);
           }}
         >
           Week
         </button>
         <button
           className={`CalendarHeaderSwitcherButton ${
-            stateCalendarHeaderComponentsSwitcher === 3
+            stateCalendarHeaderSwitcher === 3
               ? "BlueButton"
               : "WhiteButton"
           }`}
           onClick={() => {
-            setStateCalendarHeaderComponentsSwitcher(3);
+            setStateCalendarHeaderSwitcher(3);
           }}
         >
           Day
