@@ -134,8 +134,6 @@ function getCalendarWeekMainButtons() {
   }
 }
 
-const CalendarHeaderComponents: JSX.Element[] = [];
-
 export default function CalendarTodoPage() {
   const Switchers: JSX.Element[] = [];
   /**使用 useState 替代全局变量,但是useState是不能放在函数之外的 */
@@ -203,6 +201,8 @@ export default function CalendarTodoPage() {
       </div>
     );
   }
+
+const CalendarHeaderComponents: JSX.Element[] = [];
 
   const [
     stateCalendarHeaderSwitcher,
