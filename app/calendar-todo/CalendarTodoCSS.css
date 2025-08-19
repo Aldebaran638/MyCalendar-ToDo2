@@ -64,7 +64,6 @@
   /* 字体大小 */
   font-size: 2vw;
   font-size: 2vh;
-
 }
 /*------------------------------日历周模式顶部时间块样式CalendarWeekHeader------------------------------*/
 /*------------------------------导航栏样式Navigation------------------------------*/
@@ -81,15 +80,72 @@
   text-align: center;
   /*边界*/
   border: 1px solid rgba(91, 101, 110, 0.1); /* 0.1为10%不透明度，可调整 */
-    /* 颜色变化有0.3秒的平滑过渡动画 */
+  /* 颜色变化有0.3秒的平滑过渡动画 */
   transition: background-color 0.3s;
 }
 .NavigationBlankButton {
   width: 55vw;
-  border: 0px 
+  border: 0px;
 }
 
 /*------------------------------导航栏样式Navigation------------------------------*/
+
+/*------------------------------日历头部样式CalendarHeader------------------------------*/
+.CalendarHeaderButtonDate {
+  height: 8vh;
+  width: 10vw;
+  font-weight: bold; /* 加粗 */
+  font-size: 2vw; /* 字体大小 */
+}
+.CalendarHeaderButton1 {
+  height: 4vh;
+  width: 5vw;
+}
+.CalendarHeaderSwitcherButton {
+  height: 4vh;
+  width: 10vw;
+  border: 1px solid #e8e0e0;
+  /* 颜色变化有0.3秒的平滑过渡动画 */
+  transition: background-color 0.3s;
+  margin: 0px 0px;
+}
+.CalendarHeaderButton2 {
+  height: 4vh;
+  width: 10vw;
+}
+.CalendarHeaderButtonHand {
+  height: 3vh;
+  width: 5vw;
+  background-color: #ffffff;
+  border: 1px solid rgba(91, 101, 110, 0.1); /* 0.1为10%不透明度，可调整 */
+}
+/* 鼠标悬停时变成深灰色 */
+.CalendarHeaderButtonHand:hover {
+  background-color: #bdbdbd;
+}
+.CalendarHeaderButton3 {
+  height: 4vh;
+  width: 5vw;
+}
+.CalendarHeaderButtonToday {
+  height: 4vh;
+  width: 10vw;
+  /*元素圆角大小*/
+  border-radius: 3px;
+  border: 1px solid rgba(91, 101, 110, 0.1); /* 0.1为10%不透明度，可调整 */
+  background-color: #007bff; /* 蓝色 */
+  color: #fff; /* 白色文字 */
+}
+.CalendarHeaderButtonToday:hover {
+  background-color: #007bffce; /* 蓝色 */
+}
+.CalendarHeaderButton4 {
+  height: 4vh;
+  width: 0vw;
+}
+
+/*------------------------------日历头部样式CalendarHeader------------------------------*/
+
 /*------------------------------通用样式------------------------------*/
 /* 去掉左边框 */
 .NoLeftBorder {
@@ -125,5 +181,10 @@
 .BlueButton {
   background-color: #007bff;
   color: #fff;
+}
+/* 按钮调整成空白状态(去掉背景) */
+.BlankButton {
+  border: 0px;
+  background-color: transparent;
 }
 /*------------------------------通用样式------------------------------*/
