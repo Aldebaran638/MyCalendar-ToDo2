@@ -12,12 +12,12 @@ export default function MouseMoveTest() {
     null
   );
 
-  // 监听鼠标移动
+  // 监听鼠标移动(监听行为)
   const handleMouseMove = (e: React.MouseEvent) => {
     setMousePos({ x: e.clientX, y: e.clientY });
   };
 
-  // 监听鼠标点击
+  // 监听鼠标点击(监听行为)
   const handleClick = (e: React.MouseEvent) => {
     setClickPos({ x: e.clientX, y: e.clientY });
   };
