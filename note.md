@@ -29,7 +29,13 @@
   </div>
 ```
 
+# TS语法
+
+## 数组的map映射
+
 # React前端UI库
+
+## MouseEvent
 
 ## useState
 
@@ -194,3 +200,31 @@ const handleClick = (e: React.MouseEvent) => {
 解释
 - 在该div模块中规定了onMouseMove和onClick两方面属性,行为分别是handleMouseMove和handleClick
 - 该div模块展示了mousePos和clickPos两方面信息,且由于clickPos由useState定义,所以展示的信息会根据鼠标信息动态调整
+
+# CSS全局变量
+## 定义
+
+```css
+:root {
+  --main-blue: #3498db;
+  --main-white: #fff;
+  --calendar-width: 75vw;
+  --calendar-height: 96vh;
+  --header-height: 8vh;
+  --timegap: 15px;
+}
+```
+
+## 样式中使用
+
+```css
+.CalendarHeader {
+  background: var(--main-blue);
+  height: var(--header-height);
+}
+
+#Calendar {
+  width: var(--calendar-width);
+  height: var(--calendar-height);
+}
+```

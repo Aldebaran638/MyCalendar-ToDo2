@@ -1,3 +1,7 @@
+/* :root{
+
+} */
+
 /*------------------------------日历周模式主体部分时间块样式CalendarWeekMain------------------------------*/
 /* 日历每个时间块的基础样式 */
 .CalendarWeekMainButton {
@@ -26,6 +30,12 @@
 /* 鼠标悬停时变成深灰色 */
 .CalendarWeekMainButton:hover {
   background-color: #bdbdbd;
+}
+.CalendarWeekEventBlock {
+  width: 75/8vw;
+  /* 字体大小 */
+  font-size: 2vw;
+  font-size: 2vh;
 }
 
 /* 隐藏主体部分的滚动条 */
