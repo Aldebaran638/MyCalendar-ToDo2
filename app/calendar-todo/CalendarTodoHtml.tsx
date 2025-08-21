@@ -26,6 +26,8 @@ class time {
     this.mi = mi;
   }
 }
+let CalendarWeekMainBlockId = 0; // 自增id，每次刷新页面重置
+//如果放在 CalendarTodoPage 函数内部，那么每次组件渲染时，这个变量都会被重新赋值为 0
 export default function CalendarTodoPage() {
   /* -------------------------other------------------------- */
   // 存储鼠标当前位置
@@ -375,8 +377,46 @@ export default function CalendarTodoPage() {
 
     return t;
   };
+  // 计算事件块位置
+  const timeToPos = (block: eventBlock) => {
+    // 计算行列
+    const startTimeMinutes = block.startTime.h * 60 + block.startTime.mi;
+    const endTimeMinutes = block.endTime.h * 60 + block.endTime.mi;
 
-  let CalendarWeekMainBlockId = 0; // 自增id，每次刷新页面重置
+    // 计算第几行(从0开始计算)
+    const startRow = Math.floor(startTimeMinutes / TimeGap);
+    const endRow = Math.ceil(endTimeMinutes / TimeGap);
+
+    // 计算对应的列（这里从dates中获取对应的日期，然后计算是星期几）
+    let col = 2; // 默认第二列
+    for (let i = 0; i < dates.length; i++) {
+      const date = dates[i];
+      if (
+        date.getFullYear() === block.startTime.y &&
+        date.getMonth() + 1 === block.startTime.mo &&
+        date.getDate() === block.startTime.d
+      ) {
+        col = i + 1; // dates[0]对应第2列，依此类推
+        break;
+      }
+    }
+
+    // 每个按钮的高度和宽度(从样式表中获取，或根据实际测量值)
+    const buttonHeight = 15; // 假设每个按钮高30px
+    const buttonWidth = 60; // 假设每个按钮宽60px
+
+    // 计算位置
+    const top = startRow * buttonHeight;
+    const left = col * 9.375; // 第一列是时间列
+    const height = (endRow - startRow) * buttonHeight;
+
+    return {
+      top: `${top}px`,
+      left: `${left}vw`,
+      height: `${height*5}px`,
+      width: `9.375vw`,
+    };
+  };
   // 添加新事件函数
   const addCalendarWeekMainBlock = (e: React.MouseEvent) => {
     // 获取起始时间
@@ -412,12 +452,13 @@ export default function CalendarTodoPage() {
         startTime.mi +
         " "
     );
+    console.log(CalendarWeekMainBlockId);
     // 事件块属性
-    let id: string = `CalendarWeekMainBlock${CalendarWeekMainBlockId++}`;
+    let id: string = `CalendarWeekMainBlock${CalendarWeekMainBlockId}`;
     let title: string = "default";
     let description: string = "default";
     let group: number = 0;
-
+    CalendarWeekMainBlockId = CalendarWeekMainBlockId + 1;
     // 构造事件块对象
     const block: eventBlock = {
       id,
@@ -492,23 +533,30 @@ export default function CalendarTodoPage() {
             //点击时间块以开始创建新事件
             onClick={addCalendarWeekMainBlock}
           >
-            {/**事件块(信息存储对象为eventBlock，但是在渲染时映射为以下JSX对象) */}
-            {CalendarWeekMainBlocks.map((block) => (
-              <div
-                key="${block.id}"
-                className="CalendarWeekEventBlock"
-                style={{ display: "fixed", position: "absolute" }}
-              >
-                <div>{block.title}</div>
-                <div>
-                  {block.startTime.h.toString().padStart(2, "0")}:
-                  {block.startTime.mi.toString().padStart(2, "0")} -
-                  {block.endTime.h.toString().padStart(2, "0")}:
-                  {block.endTime.mi.toString().padStart(2, "0")}
+            {CalendarWeekMainBlocks.map((block) => {
+              const position = timeToPos(block);
+
+              return (
+                <div
+                  key={block.id}
+                  className="CalendarWeekEventBlock"
+                  style={{
+                    position: "absolute",
+                    ...position,
+                    zIndex: 10,
+                  }}
+                >
+                  <div>{block.title}</div>
+                  <div>
+                    {block.startTime.h.toString().padStart(2, "0")}:
+                    {block.startTime.mi.toString().padStart(2, "0")} -
+                    {block.endTime.h.toString().padStart(2, "0")}:
+                    {block.endTime.mi.toString().padStart(2, "0")}
+                  </div>
+                  <div>{block.description}</div>
                 </div>
-                <div>{block.description}</div>
-              </div>
-            ))}
+              );
+            })}
             {/**周日历时间块 */}
             {CalendarWeekMainButtons}
           </div>

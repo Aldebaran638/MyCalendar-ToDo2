@@ -47,6 +47,26 @@
 #CalendarWeekMain::-webkit-scrollbar {
   display: none; /* Chrome和Safari */
 }
+
+.CalendarWeekEventBlock {
+  width: 9.375vw;
+  border: 3px dashed #00eaff; /* 白色虚线边框 */
+  background: rgba(73, 146, 255, 0.801); /* 蓝色，透明度0.05 */
+  color: #222; /* 文字颜色可自定义 */
+  box-sizing: border-box;
+  border-radius: 6px;
+  overflow: hidden; /* 防止内容溢出 */
+  padding: 6px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* 文字靠左 */
+  justify-content: flex-start; /* 文字靠上 */
+  font-size: 14px;
+  word-break: break-all; /* 防止长单词溢出 */
+  white-space: pre-line; /* 保留换行 */
+  pointer-events: none; /* 不影响下方点击（如需可交互可去掉） */
+}
+
 /*------------------------------日历周模式主体部分时间块样式CalendarWeekMain------------------------------*/
 /*------------------------------日历周模式顶部时间块样式CalendarWeekHeader------------------------------*/
 .CalendarWeekHeaderButtonToday {
