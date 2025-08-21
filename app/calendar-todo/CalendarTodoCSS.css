@@ -50,7 +50,7 @@
 
 .CalendarWeekEventBlock {
   width: 9.375vw;
-  border: 3px dashed #00eaff; /* 白色虚线边框 */
+  border: 3px dashed #ffffff; /* 白色虚线边框 */
   background: rgba(73, 146, 255, 0.801); /* 蓝色，透明度0.05 */
   color: #222; /* 文字颜色可自定义 */
   box-sizing: border-box;
