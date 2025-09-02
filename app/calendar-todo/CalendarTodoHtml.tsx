@@ -26,24 +26,16 @@ class time {
     this.mi = mi;
   }
 }
-let CalendarWeekMainBlockId = 0; // 自增id，每次刷新页面重置
+let CalendarWeekMainBlockId = 0; // CalendarWeekMainBlock的自增id，每次刷新页面重置
 //如果放在 CalendarTodoPage 函数内部，那么每次组件渲染时，这个变量都会被重新赋值为 0
 export default function CalendarTodoPage() {
   /* -------------------------other------------------------- */
-  // 存储鼠标当前位置
-  const [mousePos, setMousePos] = useState<{ x: number; y: number }>({
-    x: 0,
-    y: 0,
-  });
-  // 存储点击位置（可选）
-  const [clickPos, setClickPos] = useState<{ x: number; y: number } | null>(
-    null
-  );
-  // 生成7天日期
+  // 生成最近7天日期
   const dates: Date[] = [];
   /* -------------------------other------------------------- */
   /* -------------------------Switchers------------------------- */
 
+  /**顶部Switcher转换器组件 */
   const Switchers: JSX.Element[] = [];
   /**使用 useState 替代全局变量,但是useState是不能放在函数之外的 */
   /**这里可以看作是用useState定义了两个东西。第一个变量用来判断当前状态，第二个函数用于设置状态 */
@@ -110,6 +102,7 @@ export default function CalendarTodoPage() {
       </div>
     );
   }
+
   /* -------------------------Switchers------------------------- */
 
   /* -------------------------CalendarHeaderComponents------------------------- */
@@ -187,9 +180,11 @@ export default function CalendarTodoPage() {
       </div>
     );
   }
+
   /* -------------------------CalendarHeaderComponents------------------------- */
 
   /* -------------------------CalendarWeekHeaderButtons------------------------- */
+
   const weekNames: string[] = [
     "",
     "星期一",
@@ -257,6 +252,7 @@ export default function CalendarTodoPage() {
       );
     }
   }
+
   /* -------------------------CalendarWeekHeaderButtons------------------------- */
 
   /* -------------------------CalendarWeekMainButtons------------------------- */
@@ -413,7 +409,7 @@ export default function CalendarTodoPage() {
     return {
       top: `${top}px`,
       left: `${left}vw`,
-      height: `${height*5}px`,
+      height: `${height * 5}px`,
       width: `9.375vw`,
     };
   };
@@ -472,6 +468,52 @@ export default function CalendarTodoPage() {
     // 添加到事件块数组
     setCalendarWeekMainBlocks((prev) => [...prev, block]);
   };
+  //动态存储临时事件块信息
+  let [CalendarWeekMainTmpBlock, setCalendarWeekMainTmpBlock] =
+    useState<eventBlock>();
+  //新创建一个临时事件函数
+  const addCalendarWeekMainTmpBlock = (e: React.MouseEvent) => {
+    // 获取起始时间
+    const startTime: time = posToTime(e);
+
+    // 如果未点击有效时间块，直接返回
+    if (!startTime || startTime.y === 0) return;
+
+    // 计算结束时间
+    let endH = startTime.h;
+    let endMi = startTime.mi + TimeGap;
+    if (endMi >= 60) {
+      endH += Math.floor(endMi / 60);
+      endMi = endMi % 60;
+    }
+    const endTime: time = new time(
+      startTime.y,
+      startTime.mo,
+      startTime.d,
+      endH,
+      endMi
+    );
+    // 事件块属性
+    let id: string = `CalendarWeekMainTmpBlock${CalendarWeekMainBlockId}`;
+    let title: string = "default";
+    let description: string = "default";
+    let group: number = 0;
+    // 构造事件块对象
+    const block: eventBlock = {
+      id,
+      title,
+      description,
+      startTime,
+      endTime,
+      group,
+    };
+
+    CalendarWeekMainTmpBlock = block;
+  };
+  //调整临时事件大小函数
+  const updateCalendarWeekMainTmpBlock = (e: React.MouseEvent) => {};
+  //删除临时事件函数
+  const deleteCalendarWeekMainTmpBlock = (e: React.MouseEvent) => {};
   //修改事件信息函数
   //删除事件函数
   /* -------------------------CalendarWeekMainBlocks------------------------- */
@@ -544,6 +586,13 @@ export default function CalendarTodoPage() {
                     position: "absolute",
                     ...position,
                     zIndex: 10,
+                    height:
+                      ((block.endTime.h * 60 +
+                        block.endTime.mi -
+                        block.startTime.h * 60 -
+                        block.startTime.mi) *
+                        8) /
+                      TimeGap,
                   }}
                 >
                   <div>{block.title}</div>

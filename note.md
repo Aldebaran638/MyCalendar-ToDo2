@@ -39,6 +39,19 @@
 
 ## useState
 
+## 渲染
+```ts
+<div
+  key={block.id}
+  className="CalendarWeekEventBlock"
+  style={{
+    position: "absolute",
+    ...position,
+    zIndex: 10,
+  }}
+>
+```
+
 ### 简介
 
 - useState是React的一个Hook,用于动态渲染组件

@@ -99,6 +99,7 @@
 /*------------------------------导航栏样式Navigation------------------------------*/
 .NavigationButton {
   width: 10vw;
+  height: 4vh;
   /*元素圆角大小*/
   border-radius: 0px;
   display: flex;
