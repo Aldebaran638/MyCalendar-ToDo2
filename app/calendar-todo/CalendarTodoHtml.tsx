@@ -470,7 +470,7 @@ export default function CalendarTodoPage() {
   };
   //动态存储临时事件块信息
   let [CalendarWeekMainTmpBlock, setCalendarWeekMainTmpBlock] =
-    useState<eventBlock>();
+    useState<eventBlock | null>(null);
   //新创建一个临时事件函数
   const addCalendarWeekMainTmpBlock = (e: React.MouseEvent) => {
     // 获取起始时间
@@ -508,12 +508,59 @@ export default function CalendarTodoPage() {
       group,
     };
 
-    CalendarWeekMainTmpBlock = block;
+    /**
+     * 不能写CalendarWeekMainTmpBlock=block，否则你会发现点击屏幕没反应
+     * 必须用规定函数设置动态属性
+     */
+    setCalendarWeekMainTmpBlock(block);
   };
   //调整临时事件大小函数
-  const updateCalendarWeekMainTmpBlock = (e: React.MouseEvent) => {};
+  const updateCalendarWeekMainTmpBlock = (e: React.MouseEvent) => {
+    // 获取起始时间
+    if (CalendarWeekMainTmpBlock) {
+      const startTime: time = CalendarWeekMainTmpBlock.startTime;
+
+      // 计算结束时间
+      let endTime: time = posToTime(e);
+      if (
+        endTime.y != CalendarWeekMainTmpBlock.startTime.y ||
+        endTime.mo != CalendarWeekMainTmpBlock.startTime.mo ||
+        endTime.d != CalendarWeekMainTmpBlock.startTime.d
+      ) {
+        return;
+      } else {
+        let endH = endTime.h;
+        let endMi = endTime.mi + TimeGap;
+        if (endMi >= 60) {
+          endH += Math.floor(endMi / 60);
+          endMi = endMi % 60;
+        }
+        endTime.h = endH;
+        endTime.mi = endMi;
+        console.log(endH + " " + endMi);
+        // 事件块属性
+        let id: string = `CalendarWeekMainTmpBlock${CalendarWeekMainBlockId}`;
+        let title: string = "default";
+        let description: string = "default";
+        let group: number = 0;
+        // 构造事件块对象
+        const block: eventBlock = {
+          id,
+          title,
+          description,
+          startTime,
+          endTime,
+          group,
+        };
+
+        setCalendarWeekMainTmpBlock(block);
+      }
+    }
+  };
   //删除临时事件函数
-  const deleteCalendarWeekMainTmpBlock = (e: React.MouseEvent) => {};
+  const deleteCalendarWeekMainTmpBlock = (e: React.MouseEvent) => {
+    setCalendarWeekMainTmpBlock(null);
+  };
   //修改事件信息函数
   //删除事件函数
   /* -------------------------CalendarWeekMainBlocks------------------------- */
@@ -573,7 +620,11 @@ export default function CalendarTodoPage() {
               position: "relative",
             }}
             //点击时间块以开始创建新事件
-            onClick={addCalendarWeekMainBlock}
+            onMouseDown={addCalendarWeekMainTmpBlock}
+            // 鼠标拖拽时，调整临时事件块大小
+            onMouseMove={updateCalendarWeekMainTmpBlock}
+            // 鼠标释放时，删除临时事件块并添加新事件进入数组
+            onMouseUp={deleteCalendarWeekMainTmpBlock}
           >
             {CalendarWeekMainBlocks.map((block) => {
               const position = timeToPos(block);
@@ -606,6 +657,38 @@ export default function CalendarTodoPage() {
                 </div>
               );
             })}
+            {CalendarWeekMainTmpBlock &&
+              (() => {
+                const block = CalendarWeekMainTmpBlock;
+                const position = timeToPos(block);
+                return (
+                  <div
+                    key={block.id}
+                    className="CalendarWeekEventBlock"
+                    style={{
+                      position: "absolute",
+                      ...position,
+                      zIndex: 10,
+                      height:
+                        ((block.endTime.h * 60 +
+                          block.endTime.mi -
+                          block.startTime.h * 60 -
+                          block.startTime.mi) *
+                          15) /
+                        TimeGap,
+                    }}
+                  >
+                    <div>{block.title}</div>
+                    <div>
+                      {block.startTime.h.toString().padStart(2, "0")}:
+                      {block.startTime.mi.toString().padStart(2, "0")} -
+                      {block.endTime.h.toString().padStart(2, "0")}:
+                      {block.endTime.mi.toString().padStart(2, "0")}
+                    </div>
+                    <div>{block.description}</div>
+                  </div>
+                );
+              })()}
             {/**周日历时间块 */}
             {CalendarWeekMainButtons}
           </div>
