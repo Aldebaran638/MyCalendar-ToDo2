@@ -328,6 +328,7 @@ export default function CalendarTodoPage() {
     startTime: time;
     endTime: time;
     group: number;
+    createTime: number; //创建时间的时间戳
   };
   //动态存储事件块信息
   const [CalendarWeekMainBlocks, setCalendarWeekMainBlocks] = useState<
@@ -454,6 +455,7 @@ export default function CalendarTodoPage() {
     let title: string = "default";
     let description: string = "default";
     let group: number = 0;
+    let createTime: number = Date.now(); // 当前时间戳
     CalendarWeekMainBlockId = CalendarWeekMainBlockId + 1;
     // 构造事件块对象
     const block: eventBlock = {
@@ -463,6 +465,7 @@ export default function CalendarTodoPage() {
       startTime,
       endTime,
       group,
+      createTime,
     };
 
     // 添加到事件块数组
@@ -498,6 +501,7 @@ export default function CalendarTodoPage() {
     let title: string = "default";
     let description: string = "default";
     let group: number = 0;
+    let createTime: number = Date.now(); // 当前时间戳
     // 构造事件块对象
     const block: eventBlock = {
       id,
@@ -506,6 +510,7 @@ export default function CalendarTodoPage() {
       startTime,
       endTime,
       group,
+      createTime,
     };
 
     /**
@@ -537,12 +542,12 @@ export default function CalendarTodoPage() {
         }
         endTime.h = endH;
         endTime.mi = endMi;
-        console.log(endH + " " + endMi);
         // 事件块属性
         let id: string = `CalendarWeekMainTmpBlock${CalendarWeekMainBlockId}`;
         let title: string = "default";
         let description: string = "default";
         let group: number = 0;
+        let createTime: number = CalendarWeekMainTmpBlock.createTime; // 当前时间戳
         // 构造事件块对象
         const block: eventBlock = {
           id,
@@ -551,6 +556,7 @@ export default function CalendarTodoPage() {
           startTime,
           endTime,
           group,
+          createTime,
         };
 
         setCalendarWeekMainTmpBlock(block);
@@ -559,7 +565,12 @@ export default function CalendarTodoPage() {
   };
   //删除临时事件函数
   const deleteCalendarWeekMainTmpBlock = (e: React.MouseEvent) => {
-    setCalendarWeekMainTmpBlock(null);
+    if (CalendarWeekMainTmpBlock) {
+      let block = CalendarWeekMainTmpBlock as eventBlock;
+      block.createTime = CalendarWeekMainTmpBlock.createTime;
+      CalendarWeekMainBlocks.push(block);
+      setCalendarWeekMainTmpBlock(null);
+    }
   };
   //修改事件信息函数
   //删除事件函数
@@ -642,7 +653,7 @@ export default function CalendarTodoPage() {
                         block.endTime.mi -
                         block.startTime.h * 60 -
                         block.startTime.mi) *
-                        8) /
+                        15) /
                       TimeGap,
                   }}
                 >
@@ -664,7 +675,7 @@ export default function CalendarTodoPage() {
                 return (
                   <div
                     key={block.id}
-                    className="CalendarWeekEventBlock"
+                    className="CalendarWeekTmpEventBlock"
                     style={{
                       position: "absolute",
                       ...position,

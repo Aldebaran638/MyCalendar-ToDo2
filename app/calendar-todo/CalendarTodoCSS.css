@@ -32,11 +32,26 @@
   background-color: #bdbdbd;
 }
 .CalendarWeekEventBlock {
-  width: 75/8vw;
   /* 字体大小 */
   font-size: 2vw;
   font-size: 2vh;
   transition: width 0.3s, height 0.3s, top 0.15s, left 0.15s;
+  width: 9.375vw;
+  border: 3px dashed #ffffff; /* 白色虚线边框 */
+  background: rgba(73, 146, 255, 0.801); /* 蓝色，透明度0.05 */
+  color: #222; /* 文字颜色可自定义 */
+  box-sizing: border-box;
+  border-radius: 6px;
+  overflow: hidden; /* 防止内容溢出 */
+  padding: 6px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* 文字靠左 */
+  justify-content: flex-start; /* 文字靠上 */
+  font-size: 14px;
+  word-break: break-all; /* 防止长单词溢出 */
+  white-space: pre-line; /* 保留换行 */
+  pointer-events: none; /* 不影响下方点击（如需可交互可去掉） */
 }
 
 /* 隐藏主体部分的滚动条 */
@@ -49,7 +64,12 @@
   display: none; /* Chrome和Safari */
 }
 
-.CalendarWeekEventBlock {
+.CalendarWeekTmpEventBlock {
+  width: 9.375vw;
+  /* 字体大小 */
+  font-size: 2vw;
+  font-size: 2vh;
+  transition: width 0.3s, height 0.3s, top 0.15s, left 0.15s;
   width: 9.375vw;
   border: 3px dashed #ffffff; /* 白色虚线边框 */
   background: rgba(73, 146, 255, 0.801); /* 蓝色，透明度0.05 */
