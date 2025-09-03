@@ -95,8 +95,7 @@
   color: #fff !important;
 }
 .CalendarWeekHeaderButton {
-  /* 宽度自动匹配 */
-  flex: 1;
+  width: 9.375vw;
   /* 高度固定 */
   height: 8vh;
   /* 与其他组件的间距 */
