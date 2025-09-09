@@ -197,6 +197,153 @@
 
 /*------------------------------日历头部样式CalendarHeader------------------------------*/
 
+/*------------------------------控制台部分样式ControllerCalendarController------------------------------*/
+
+/*该部分代码由AI编写*/
+
+
+#ControllerCalendarController {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  padding: 20px;
+  max-width: 100%;
+}
+
+/* 各个输入组件通用样式 */
+.ControllerCalendarControllerTitle,
+.ControllerCalendarControllerDescription,
+.ControllerCalendarControllerStartTime,
+.ControllerCalendarControllerEndTime,
+.ControllerCalendarControllerCreateTime {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 18px;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+/* 标签样式 */
+.ControllerCalendarControllerTitle span:first-child,
+.ControllerCalendarControllerDescription span:first-child,
+.ControllerCalendarControllerStartTime span:first-child,
+.ControllerCalendarControllerEndTime span:first-child,
+.ControllerCalendarControllerCreateTime span:first-child {
+  font-weight: 600;
+  font-size: 16px;
+  color: #000000;
+  margin-bottom: 8px;
+  transition: color 0.2s;
+}
+
+/* 输入框基础样式 */
+.ControllerCalendarControllerTitle input,
+.ControllerCalendarControllerDescription input,
+.ControllerCalendarControllerStartTime input,
+.ControllerCalendarControllerEndTime input {
+  padding: 10px 14px;
+  font-size: 15px;
+  background-color: #f8fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  outline: none;
+  transition: all 0.3s;
+  width: calc(100% - 30px);
+}
+
+/* 输入框悬停效果 */
+.ControllerCalendarControllerTitle input:hover,
+.ControllerCalendarControllerDescription input:hover,
+.ControllerCalendarControllerStartTime input:hover,
+.ControllerCalendarControllerEndTime input:hover {
+  border-color: #cbd5e1;
+  background-color: #f1f5f9;
+}
+
+/* 输入框焦点效果 */
+.ControllerCalendarControllerTitle input:focus,
+.ControllerCalendarControllerDescription input:focus,
+.ControllerCalendarControllerStartTime input:focus,
+.ControllerCalendarControllerEndTime input:focus {
+  border-color: #4992ff;
+  box-shadow: 0 0 0 3px rgba(73, 146, 255, 0.15);
+  background-color: #ffffff;
+}
+
+/* 描述输入框高度增加 */
+.ControllerCalendarControllerDescription input {
+  min-height: 60px;
+}
+
+/* 日期时间选择器样式优化 */
+.ControllerCalendarControllerStartTime input,
+.ControllerCalendarControllerEndTime input {
+  color: #334155;
+  background-repeat: no-repeat;
+  background-position: calc(100% - 12px) center;
+  background-size: 16px;
+}
+
+/* 创建时间特殊样式 */
+.ControllerCalendarControllerCreateTime {
+  padding: 8px 12px;
+  background-color: #f1f5f9;
+  border-radius: 8px;
+  border-left: 3px solid #4992ff;
+}
+
+.ControllerCalendarControllerCreateTime span:last-child {
+  font-size: 15px;
+  color: #64748b;
+  font-weight: normal;
+  margin-top: 4px;
+}
+
+/* 错误提示样式 */
+#ControllerCalendarController .error-message {
+  color: #ef4444;
+  font-size: 14px;
+  margin-top: 8px;
+  padding: 8px 12px;
+  background-color: #fee2e2;
+  border-radius: 6px;
+  border-left: 3px solid #ef4444;
+  display: flex;
+  align-items: center;
+}
+
+#ControllerCalendarController .error-message::before {
+  content: "⚠️";
+  margin-right: 8px;
+}
+
+/* 提交按钮样式 */
+.ControllerCalendarControllerSubmit {
+  margin-top: 20px;
+  padding: 12px 24px;
+  background-color: #4992ff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: inline-block;
+  box-shadow: 0 2px 5px rgba(73, 146, 255, 0.3);
+}
+
+.ControllerCalendarControllerSubmit:hover {
+  background-color: #3a7fd9;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(73, 146, 255, 0.4);
+}
+
+.ControllerCalendarControllerSubmit:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 3px rgba(73, 146, 255, 0.3);
+}
+/*------------------------------控制台部分样式ControllerCalendarController------------------------------*/
+
 /*------------------------------通用样式------------------------------*/
 /* 去掉左边框 */
 .NoLeftBorder {

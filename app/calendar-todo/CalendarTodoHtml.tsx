@@ -5,6 +5,7 @@ import "./CalendarWeek.tsx";
 import { JSX } from "react";
 import { useState } from "react";
 import CalendarWeek from "./CalendarWeek.tsx";
+import ControllerCalendarController from "./ControllerCalendarController";
 export default function CalendarTodoPage() {
   /* -------------------------other------------------------- */
 
@@ -209,7 +210,9 @@ export default function CalendarTodoPage() {
             width: "25vw",
             height: "96vh",
           }}
-        ></div>
+        >
+          <ControllerCalendarController />
+        </div>
       </div>
     </section>
   );
