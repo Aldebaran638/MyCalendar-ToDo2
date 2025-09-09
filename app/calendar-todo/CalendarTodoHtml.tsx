@@ -4,7 +4,7 @@ import "./CalendarWeek.tsx";
 
 import { JSX } from "react";
 import { useState } from "react";
-import CalendarWeek from "./CalendarWeek.tsx";
+import CalendarWeek from "./CalendarWeek";
 import ControllerCalendarController from "./ControllerCalendarController";
 export default function CalendarTodoPage() {
   /* -------------------------other------------------------- */

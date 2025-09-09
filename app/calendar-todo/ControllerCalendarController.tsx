@@ -8,7 +8,7 @@ import {
   setcontrollerEndTime,
   controllerError,
   setControllerError,
-} from "./global.tsx";
+} from "./global";
 
 export default function ControllerCalendarController() {
   // //事件块对象定义
