@@ -1,6 +1,15 @@
 import { JSX } from "react";
-import { useState } from "react";
+import "./global.tsx";
 import "./CalendarTodoCSS.css";
+import {
+  controllerStartTime,
+  setControllerStartTime,
+  controllerEndTime,
+  setcontrollerEndTime,
+  controllerError,
+  setControllerError,
+} from "./global.tsx";
+
 export default function ControllerCalendarController() {
   // //事件块对象定义
   // type eventBlock = {
@@ -8,54 +17,54 @@ export default function ControllerCalendarController() {
   //   title: string;
   //   description: string;
 
-  //   startTime: time;
-  //   endTime: time;
+  //   controllerStartTime: time;
+  //   controllerEndTime: time;
 
   //   group: number;
   //   createTime: number; //创建时间的时间戳
   // };
-  const [startTime, setStartTime] = useState("");
-  const [endTime, setEndTime] = useState("");
-  const [error, setError] = useState("");
+
   // 时间选择框的处理函数
   const handleStartTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
 
-    if (endTime) {
+    if (controllerEndTime) {
       // 检查是否在同一天
       const startDate = new Date(value).toDateString();
 
       // 如果有结束时间，需要构建完整的结束时间日期（用开始日期 + 结束时间）
-      const endTimeHourMinute = endTime.split(":");
-      const endTimeDate = new Date(
+      const controllerEndTimeHourMinute = controllerEndTime.split(":");
+      const controllerEndTimeDate = new Date(
         new Date(value).setHours(
-          parseInt(endTimeHourMinute[0]),
-          parseInt(endTimeHourMinute[1])
+          parseInt(controllerEndTimeHourMinute[0]),
+          parseInt(controllerEndTimeHourMinute[1])
         )
       );
 
       // 检查是否在同一天和时间大小
-      if (startDate !== endTimeDate.toDateString()) {
-        setError("开始时间和结束时间必须在同一天！");
+      if (startDate !== controllerEndTimeDate.toDateString()) {
+        setControllerError("开始时间和结束时间必须在同一天！");
         return;
       }
 
-      if (value >= endTimeDate.toISOString().slice(0, 16)) {
-        setError("开始时间不能大于或等于结束时间！");
+      if (value >= controllerEndTimeDate.toISOString().slice(0, 16)) {
+        setControllerError("开始时间不能大于或等于结束时间！");
         return;
       }
     }
 
-    setError("");
-    setStartTime(value);
+    setControllerError("");
+    setControllerStartTime(value);
   };
 
-  const handleEndTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlecontrollerEndTimeChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const value = e.target.value; // 这里只有时分
 
-    if (startTime) {
+    if (controllerStartTime) {
       // 从开始时间提取日期部分
-      const startDateTime = new Date(startTime);
+      const startDateTime = new Date(controllerStartTime);
 
       // 从输入的时间值提取小时和分钟
       const [hours, minutes] = value.split(":").map(Number);
@@ -66,19 +75,19 @@ export default function ControllerCalendarController() {
 
       // 检查是否是同一天
       if (startDateTime.toDateString() !== endDateTime.toDateString()) {
-        setError("开始时间和结束时间必须在同一天！");
+        setControllerError("开始时间和结束时间必须在同一天！");
         return;
       }
 
       // 检查时间大小
       if (startDateTime >= endDateTime) {
-        setError("结束时间不能小于或等于开始时间！");
+        setControllerError("结束时间不能小于或等于开始时间！");
         return;
       }
     }
 
-    setError("");
-    setEndTime(value);
+    setControllerError("");
+    setcontrollerEndTime(value);
   };
 
   const title: JSX.Element = (
@@ -124,25 +133,29 @@ export default function ControllerCalendarController() {
         <span>开始时间：</span>
         <input
           type="datetime-local"
-          value={startTime}
+          value={controllerStartTime}
           onChange={handleStartTimeChange}
         />
       </div>
     </main>
   );
 
-  const endTimeElem: JSX.Element = (
+  const controllerEndTimeElem: JSX.Element = (
     <main>
       <div
-        id="ControllerCalendarControllerEndTime"
+        id="ControllerCalendarControllercontrollerEndTime"
         style={{
           display: "flex",
           flexDirection: "column",
         }}
-        className="ControllerCalendarControllerEndTime"
+        className="ControllerCalendarControllercontrollerEndTime"
       >
         <span>结束时间（不能跨天）：</span>
-        <input type="time" value={endTime} onChange={handleEndTimeChange} />
+        <input
+          type="time"
+          value={controllerEndTime}
+          onChange={handlecontrollerEndTimeChange}
+        />
       </div>
     </main>
   );
@@ -175,7 +188,7 @@ export default function ControllerCalendarController() {
         {title}
         {description}
         {startTimeElem}
-        {endTimeElem}
+        {controllerEndTimeElem}
         {createTime}
       </div>
     </main>
