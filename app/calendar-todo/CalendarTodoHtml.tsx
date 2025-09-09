@@ -7,7 +7,7 @@ import { useState } from "react";
 import CalendarWeek from "./CalendarWeek.tsx";
 export default function CalendarTodoPage() {
   /* -------------------------other------------------------- */
-  
+
   /* -------------------------other------------------------- */
   /* -------------------------Switchers------------------------- */
 
@@ -167,38 +167,50 @@ export default function CalendarTodoPage() {
       <div id="Navigation" style={{ width: "100vw", height: "4vh" }}>
         {Switchers}
       </div>
-      {/**日历容器 */}
+      {/**日历-控制器容器*/}
       <div
-        id="Calendar"
+        id="ControllerTodo"
         style={{
-          width: "75vw",
+          width: "100vw",
           height: "96vh",
+          display: "flex",
         }}
       >
-        {/**日历头部容器 */}
+        {" "}
+        {/**日历容器 */}
         <div
-          id="CalendarHeader"
+          id="Calendar"
           style={{
-            height: "8vh",
+            width: "75vw",
+            height: "96vh",
           }}
         >
-          {CalendarHeaderComponents}
+          {/**日历头部容器 */}
+          <div
+            id="CalendarHeader"
+            style={{
+              height: "8vh",
+            }}
+          >
+            {CalendarHeaderComponents}
+          </div>
+          {/**周模式下日历容器 */}
+          <div>
+            <CalendarWeek />
+          </div>
         </div>
-        {/**周模式下日历容器 */}
-        <div>
-          <CalendarWeek />
-        </div>
+        {/**控制器容器 */}
+        <div
+          id="Controller"
+          style={{
+            display: "absolute",
+            left: "75vw",
+            top: "4vh",
+            width: "25vw",
+            height: "96vh",
+          }}
+        ></div>
       </div>
-      <div
-        id="Controller"
-        style={{
-          display: "absolute",
-          left: "75vw",
-          top: "4vh",
-          width: "25vw",
-          height: "96vh",
-        }}
-      ></div>
     </section>
   );
 }
