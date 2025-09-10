@@ -1,29 +1,24 @@
 import { JSX } from "react";
-import "./global.tsx";
+import "./SharedStateContext";
 import "./CalendarTodoCSS.css";
-import {
-  controllerStartTime,
-  setControllerStartTime,
-  controllerEndTime,
-  setcontrollerEndTime,
-  controllerError,
-  setControllerError,
-} from "./global";
-
+import { useContext } from "react";
+import { SharedStateContext } from "./SharedStateContext";
 export default function ControllerCalendarController() {
-  // //事件块对象定义
-  // type eventBlock = {
-  //   id: string;
-  //   title: string;
-  //   description: string;
-
-  //   controllerStartTime: time;
-  //   controllerEndTime: time;
-
-  //   group: number;
-  //   createTime: number; //创建时间的时间戳
-  // };
-
+  /* -------------------------从父组件中导入全局useState变量------------------------- */
+  const sharedState = useContext(SharedStateContext);
+  if (!sharedState) {
+    // You can render a fallback UI or return null if context is not available
+    return <div> SharedState context not found.</div>;
+  }
+  const {
+    controllerStartTime,
+    setControllerStartTime,
+    controllerEndTime,
+    setcontrollerEndTime,
+    controllerError,
+    setControllerError,
+  } = sharedState;
+  /* -------------------------从父组件中导入全局useState变量------------------------- */
   // 时间选择框的处理函数
   const handleStartTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;

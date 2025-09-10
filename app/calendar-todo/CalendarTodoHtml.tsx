@@ -6,7 +6,11 @@ import { JSX } from "react";
 import { useState } from "react";
 import CalendarWeek from "./CalendarWeek";
 import ControllerCalendarController from "./ControllerCalendarController";
+import { SharedStateContext } from "./SharedStateContext";
 export default function CalendarTodoPage() {
+  const [controllerStartTime, setControllerStartTime] = useState("");
+  const [controllerEndTime, setcontrollerEndTime] = useState("");
+  const [controllerError, setControllerError] = useState("");
   /* -------------------------other------------------------- */
 
   /* -------------------------other------------------------- */
@@ -164,56 +168,67 @@ export default function CalendarTodoPage() {
   getCalendarHeaderComponents();
   return (
     <section>
-      {/**导航容器 */}
-      <div id="Navigation" style={{ width: "100vw", height: "4vh" }}>
-        {Switchers}
-      </div>
-      {/**日历-控制器容器*/}
-      <div
-        id="ControllerTodo"
-        style={{
-          width: "100vw",
-          height: "96vh",
-          display: "flex",
+      <SharedStateContext.Provider
+        value={{
+          controllerStartTime,
+          setControllerStartTime,
+          controllerEndTime,
+          setcontrollerEndTime,
+          controllerError,
+          setControllerError,
         }}
       >
-        {" "}
-        {/**日历容器 */}
+        {/**导航容器 */}
+        <div id="Navigation" style={{ width: "100vw", height: "4vh" }}>
+          {Switchers}
+        </div>
+        {/**日历-控制器容器*/}
         <div
-          id="Calendar"
+          id="ControllerTodo"
           style={{
-            width: "75vw",
+            width: "100vw",
             height: "96vh",
+            display: "flex",
           }}
         >
-          {/**日历头部容器 */}
+          {" "}
+          {/**日历容器 */}
           <div
-            id="CalendarHeader"
+            id="Calendar"
             style={{
-              height: "8vh",
+              width: "75vw",
+              height: "96vh",
             }}
           >
-            {CalendarHeaderComponents}
+            {/**日历头部容器 */}
+            <div
+              id="CalendarHeader"
+              style={{
+                height: "8vh",
+              }}
+            >
+              {CalendarHeaderComponents}
+            </div>
+            {/**周模式下日历容器 */}
+            <div>
+              <CalendarWeek />
+            </div>
           </div>
-          {/**周模式下日历容器 */}
-          <div>
-            <CalendarWeek />
+          {/**控制器容器 */}
+          <div
+            id="Controller"
+            style={{
+              display: "absolute",
+              left: "75vw",
+              top: "4vh",
+              width: "25vw",
+              height: "96vh",
+            }}
+          >
+            <ControllerCalendarController />
           </div>
         </div>
-        {/**控制器容器 */}
-        <div
-          id="Controller"
-          style={{
-            display: "absolute",
-            left: "75vw",
-            top: "4vh",
-            width: "25vw",
-            height: "96vh",
-          }}
-        >
-          <ControllerCalendarController />
-        </div>
-      </div>
+      </SharedStateContext.Provider>
     </section>
   );
 }
